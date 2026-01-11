@@ -1,6 +1,7 @@
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
+import { Analytics } from '@vercel/analytics/next';
 
 import Header from '../components/Header'
 import { GitHubIcon, TwitterIcon } from '../components/icons'
@@ -44,6 +45,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <Analytics />
         <Header />
         {children}
         <footer className="relative z-10 flex-shrink-0 h-14 flex items-center justify-center text-center text-muted-foreground text-sm bg-background/60 backdrop-blur-xl border-t border-border">
