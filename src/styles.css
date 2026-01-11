@@ -124,3 +124,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .tab-content-height {
+    transition: min-height 200ms ease-out;
+  }
+}

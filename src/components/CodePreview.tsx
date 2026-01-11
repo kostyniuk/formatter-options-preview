@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { codeToHtml } from 'shiki'
+import { useState } from 'react'
+import { Highlight, themes } from 'prism-react-renderer'
 import { Copy, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -11,18 +11,10 @@ interface CodePreviewProps {
 
 export function CodePreview({
   code,
-  language = 'tsx',
+  language = 'typescript',
   className,
 }: CodePreviewProps) {
-  const [html, setHtml] = useState<string>('')
   const [copied, setCopied] = useState(false)
-
-  useEffect(() => {
-    codeToHtml(code, {
-      lang: language,
-      theme: 'github-dark',
-    }).then(setHtml)
-  }, [code, language])
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(code)
@@ -43,10 +35,19 @@ export function CodePreview({
           <Copy className="w-4 h-4" />
         )}
       </button>
-      <div
-        className="[&>pre]:p-4 [&>pre]:m-0 [&>pre]:overflow-x-auto [&>pre]:text-sm [&>pre]:leading-relaxed"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
+      <Highlight theme={themes.dracula} code={code.trim()} language={language}>
+        {({ style, tokens, getLineProps, getTokenProps }) => (
+          <pre className="p-4 m-0 overflow-x-auto text-sm leading-relaxed bg-slate-900/50" style={style}>
+            {tokens.map((line, i) => (
+              <div key={i} {...getLineProps({ line })}>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token })} />
+                ))}
+              </div>
+            ))}
+          </pre>
+        )}
+      </Highlight>
     </div>
   )
 }

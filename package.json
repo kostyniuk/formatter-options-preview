@@ -29,6 +29,7 @@
     "cmdk": "^1.1.1",
     "lucide-react": "^0.562.0",
     "nitro": "latest",
+    "prism-react-renderer": "^2.4.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "shadcn": "^3.6.3",

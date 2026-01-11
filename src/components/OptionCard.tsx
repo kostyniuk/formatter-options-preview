@@ -6,7 +6,6 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Badge } from '@/components/ui/badge'
 import { CodePreview } from './CodePreview'
 import type { PrettierOption } from '@/data/prettierOptions'
 
@@ -19,6 +18,7 @@ export function OptionCard({ option }: OptionCardProps) {
     (opt) => opt.value === option.defaultValue
   )
   const defaultOption = option.options[defaultOptionIndex] ?? option.options[0]
+
 
   return (
     <Card className="overflow-hidden">
