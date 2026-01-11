@@ -1,7 +1,7 @@
 import { createFileRoute, useSearch } from '@tanstack/react-router'
 import { RotateCcw } from 'lucide-react'
 import { OptionCard } from '@/components/OptionCard'
-import { Separator } from '@/components/ui/separator'
+
 import { prettierOptions } from '@/data/prettierOptions'
 import { oxfmtOptions } from '@/data/oxfmtOptions'
 import { useSelectedValues } from '@/components/SelectedValuesContext'
@@ -38,12 +38,12 @@ function App() {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-10">
             <div className="text-center flex-1">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-                <span className="text-primary">Prettier</span> Options Configurator
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-foreground">
+                Mellowfmt
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Explore all Prettier formatting options. Preview and export
-                configuration files for your projects.
+                Configure and compare options for <span className="font-semibold text-primary">Prettier</span> and <span className="font-semibold text-[#F9D949]">Oxfmt</span>.
+                Preview real-time changes and export your configuration.
               </p>
             </div>
             <Button variant="outline" size="sm" onClick={resetSelectedValues}>
@@ -67,12 +67,12 @@ function App() {
 
           {showOxfmtSection && filteredOxfmtOptions.length > 0 && (
             <>
-              <Separator className="my-16" />
+              <div className="my-16 h-px bg-border" />
 
               <div className="flex items-center justify-between mb-10">
                 <div className="text-center flex-1">
                   <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-                    <span className="text-[#F9D949]">Oxfmt</span> Options Configurator
+                    <span className="text-[#F9D949]">Oxfmt</span> Options
                   </h2>
                   <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                     These options are exclusive to{' '}
@@ -84,7 +84,7 @@ function App() {
                     >
                       Oxfmt
                     </a>
-                    , the Rust-based JavaScript formatter from the Oxc project.
+                    , a blazingly fast Rust-based JavaScript formatter.
                   </p>
                 </div>
               </div>

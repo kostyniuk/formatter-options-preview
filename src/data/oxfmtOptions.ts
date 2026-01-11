@@ -11,6 +11,20 @@ export const oxfmtOptions: PrettierOption[] = [
     apiOverride: 'objectWrap: "<preserve|collapse|always>"',
     options: [
       {
+        value: 'preserve',
+        label: 'preserve (default)',
+        description: 'Keep as multi-line if there is a newline between opening brace and first property',
+        codeExample: `const expanded = {
+  foo: "bar",
+};`,
+      },
+      {
+        value: 'collapse',
+        label: 'collapse',
+        description: 'Collapse object literals that fit on one line',
+        codeExample: `const compact = { foo: "bar", baz: "qux" };`,
+      },
+      {
         value: 'always',
         label: 'always (oxfmt only)',
         description: 'Always expand object literals to multiple lines',

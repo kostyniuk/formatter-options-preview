@@ -9,6 +9,7 @@ import {
   ComboboxLabel,
   ComboboxCollection,
 } from '@/components/ui/combobox'
+import { cn } from '@/lib/utils'
 import type { PrettierOption } from '@/data/prettierOptions'
 import { prettierOptions } from '@/data/prettierOptions'
 import { oxfmtOptions } from '@/data/oxfmtOptions'
@@ -70,7 +71,12 @@ export function OptionsCombobox({
         <ComboboxList>
           {(group) => (
             <ComboboxGroup key={group.value} items={group.items}>
-              <ComboboxLabel>{group.value}</ComboboxLabel>
+              <ComboboxLabel className={cn(
+                "font-bold uppercase tracking-wider text-[10px]",
+                group.value === 'Prettier' ? "text-primary" : "text-[#F9D949]"
+              )}>
+                {group.value}
+              </ComboboxLabel>
               <ComboboxCollection>
                 {(item) => (
                   <ComboboxItem key={item.value} value={item.value}>
