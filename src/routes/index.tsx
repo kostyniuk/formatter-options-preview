@@ -38,10 +38,10 @@ function App() {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-10">
             <div className="text-center flex-1">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-foreground">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground drop-shadow-sm leading-[1.1]">
                 Mellowfmt
               </h1>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                 Configure and compare options for <span className="font-semibold text-primary">Prettier</span> and <span className="font-semibold text-[#F9D949]">Oxfmt</span>.
                 Preview real-time changes and export your configuration.
               </p>
@@ -71,10 +71,10 @@ function App() {
 
               <div className="flex items-center justify-between mb-10">
                 <div className="text-center flex-1">
-                  <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+                  <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground drop-shadow-sm leading-[1.1]">
                     <span className="text-[#F9D949]">Oxfmt</span> Options
                   </h2>
-                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                  <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                     These options are exclusive to{' '}
                     <a
                       href="https://oxc.rs/docs/guide/usage/formatter/config-file-reference.html"
