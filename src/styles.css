@@ -122,6 +122,11 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-image: url('/grid-pattern.svg');
+    background-repeat: repeat;
+  }
+  .dark body {
+    background-image: url('/grid-pattern-dark.svg');
   }
 }
 

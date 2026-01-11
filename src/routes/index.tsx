@@ -29,7 +29,7 @@ function App() {
   const showOxfmtSection = !selectedOption || filteredOxfmtOptions.length > 0
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <section className="py-12 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
