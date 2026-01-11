@@ -7,7 +7,7 @@ import { oxfmtOptions } from '@/data/oxfmtOptions'
 export const Route = createFileRoute('/')({
   validateSearch: (search: Record<string, unknown>) => {
     return {
-      option: ((search.option as string) || '') as string,
+      option: (search.option as string) || undefined,
     }
   },
   component: App,
