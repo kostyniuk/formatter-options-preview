@@ -7,6 +7,7 @@ import Header from '../components/Header'
 import { GitHubIcon, TwitterIcon } from '../components/icons'
 
 import appCss from '../styles.css?url'
+import { getThemeServerFn } from '@/lib/theme';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -18,9 +19,9 @@ export const Route = createRootRoute({
         name: 'viewport',
         content: 'width=device-width, initial-scale=1',
       },
-        {
-          title: 'Mellowfmt',
-        },
+      {
+        title: 'Mellowfmt',
+      },
     ],
     links: [
       {
@@ -34,13 +35,17 @@ export const Route = createRootRoute({
       },
     ],
   }),
-
+  loader: async () => {
+    const theme = await getThemeServerFn()
+    return { theme }
+  },
   shellComponent: RootDocument,
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const { theme } = Route.useLoaderData()
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning className={theme}>
       <head>
         <HeadContent />
       </head>

@@ -1,25 +1,29 @@
 import { Moon, Sun } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useRouter } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
+import { setThemeServerFn } from '@/lib/theme'
+import { Route } from '@/routes/__root'
+
+type Theme = 'light' | 'dark'
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+  // Infer theme from cookie via root loader data
+  const { theme } = Route.useLoaderData()
+  const router = useRouter()
 
-  useEffect(() => {
-    // Check for saved theme or system preference
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+  const toggleTheme = async () => {
+    const newTheme: Theme = theme === 'light' ? 'dark' : 'light'
+    
+    // Update DOM immediately for instant feedback
+    document.documentElement.classList.remove('light', 'dark')
+    document.documentElement.classList.add(newTheme)
+    document.documentElement.style.colorScheme = newTheme
 
-    const initialTheme = savedTheme ?? (systemPrefersDark ? 'dark' : 'light')
-    setTheme(initialTheme)
-    document.documentElement.classList.toggle('dark', initialTheme === 'dark')
-  }, [])
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light'
-    setTheme(newTheme)
-    localStorage.setItem('theme', newTheme)
-    document.documentElement.classList.toggle('dark', newTheme === 'dark')
+    // Persist to cookie via server function
+    await setThemeServerFn({ data: newTheme })
+    
+    // Invalidate router to refetch loader data (which reads from cookie)
+    router.invalidate()
   }
 
   return (
