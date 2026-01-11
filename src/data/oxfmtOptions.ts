@@ -86,10 +86,10 @@ import { cn } from "@/lib/utils";`,
     ],
   },
   {
-    name: 'Experimental Sort Package JSON',
+    name: 'Experimental Sort Package.json',
     key: 'experimentalSortPackageJson',
     description:
-      'Automatically sort keys in package.json files according to a conventional order.',
+      'Automatically sort keys in `package.json` files according to a conventional order.',
     defaultValue: true,
     cliOverride: '--experimental-sort-package-json',
     apiOverride: 'experimentalSortPackageJson: <bool>',

@@ -16,7 +16,7 @@ import { oxfmtOptions } from '@/data/oxfmtOptions'
 interface OptionsComboboxProps {
   options: PrettierOption[]
   value: string
-  onValueChange: (value: string) => void
+  onValueChange?: (value: string) => void
 }
 
 export function OptionsCombobox({
@@ -57,11 +57,11 @@ export function OptionsCombobox({
   return (
     <Combobox
       value={value}
-      onValueChange={(val) => onValueChange(val ?? '')}
+      onValueChange={(val) => onValueChange?.(val ?? '')}
       items={groups}
     >
       <ComboboxInput
-        placeholder="Search options..."
+        placeholder="Search formatting options..."
         className="w-full"
         showClear={!!value}
       />

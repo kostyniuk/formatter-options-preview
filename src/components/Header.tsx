@@ -1,19 +1,32 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useSearch, useNavigate } from '@tanstack/react-router'
 import { ThemeToggle } from './ThemeToggle'
 import { GenerateConfigDropdown } from './GenerateConfigDropdown'
+import { OptionsCombobox } from './OptionsCombobox'
 import { GitHubIcon, TwitterIcon } from './icons'
+import { prettierOptions } from '@/data/prettierOptions'
+import { oxfmtOptions } from '@/data/oxfmtOptions'
 
 export default function Header() {
+  const search = useSearch({ from: '/' })
+  const navigate = useNavigate({ from: '/' })
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="max-w-7xl mx-auto px-6 h-14 flex items-center">
-        <Link to="/" className="flex items-center gap-2">
+      <div className="max-w-7xl mx-auto px-6 h-14 flex items-center gap-4">
+        <Link to="/" search={{ option: search.option }} className="flex items-center gap-2">
           <img src="/favicon.svg" alt="Logo" className="w-6 h-6" />
           <span className="text-lg font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
             Mellowfmt
           </span>
         </Link>
         <div className="flex-1" />
+        <div className="w-64 hidden md:block">
+          <OptionsCombobox
+            options={[...prettierOptions, ...oxfmtOptions]}
+            value={search.option || ''}
+            onValueChange={(val) => navigate({ search: { option: val } })}
+          />
+        </div>
         <div className="flex items-center gap-4">
           <a
             href="https://github.com/kostyniuk"
