@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/react';
 
 import Header from '../components/Header'
 import { GitHubIcon, TwitterIcon } from '../components/icons'
+import { SelectedValuesProvider } from '../components/SelectedValuesContext'
 
 import appCss from '../styles.css?url'
 import { getThemeServerFn } from '@/lib/theme';
@@ -51,8 +52,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <Analytics />
-        <Header />
-        {children}
+        <SelectedValuesProvider>
+          <Header />
+          {children}
+        </SelectedValuesProvider>
         <footer className="relative z-10 flex-shrink-0 h-14 flex items-center justify-center text-center text-muted-foreground text-sm bg-background/60 backdrop-blur-xl border-t border-border">
           <div className="container mx-auto flex items-center justify-center gap-4">
             <p>© 2026 Mellowfmt. All rights reserved.</p>

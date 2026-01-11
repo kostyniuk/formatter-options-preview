@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   Card,
   CardContent,
@@ -11,15 +12,11 @@ import type { PrettierOption } from '@/data/prettierOptions'
 
 interface OptionCardProps {
   option: PrettierOption
+  selectedValue: string | boolean | number
+  onValueChange: (value: string | boolean | number) => void
 }
 
-export function OptionCard({ option }: OptionCardProps) {
-  const defaultOptionIndex = option.options.findIndex(
-    (opt) => opt.value === option.defaultValue
-  )
-  const defaultOption = option.options[defaultOptionIndex] ?? option.options[0]
-
-
+export function OptionCard({ option, selectedValue, onValueChange }: OptionCardProps): React.ReactNode {
   return (
     <Card className="overflow-hidden">
       <CardHeader className="pb-2">
@@ -46,7 +43,7 @@ export function OptionCard({ option }: OptionCardProps) {
           </code>
         </div>
 
-        <Tabs defaultValue={String(defaultOption.value)} className="w-full">
+        <Tabs value={String(selectedValue)} onValueChange={(value) => onValueChange(value as string | boolean | number)} className="w-full">
           <TabsList className="w-full flex-wrap h-auto gap-1 bg-muted/50">
             {option.options.map((opt) => {
               const isDefault = opt.value === option.defaultValue

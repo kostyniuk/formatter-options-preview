@@ -8,32 +8,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { prettierOptions } from '@/data/prettierOptions'
 import { oxfmtOptions } from '@/data/oxfmtOptions'
-
-function generatePrettierConfig() {
-  const config: Record<string, string | boolean | number> = {}
-
-  for (const option of prettierOptions) {
-    config[option.key] = option.defaultValue
-  }
-
-  return config
-}
-
-function generateOxfmtConfig() {
-  const config: Record<string, string | boolean | number> = {}
-
-  // Include all prettier options
-  for (const option of prettierOptions) {
-    config[option.key] = option.defaultValue
-  }
-
-  // Include oxfmt-specific options
-  for (const option of oxfmtOptions) {
-    config[option.key] = option.defaultValue
-  }
-
-  return config
-}
+import { useSelectedValues } from './SelectedValuesContext'
 
 function downloadJson(config: Record<string, unknown>, filename: string) {
   const jsonString = JSON.stringify(config, null, 2)
@@ -49,13 +24,24 @@ function downloadJson(config: Record<string, unknown>, filename: string) {
 }
 
 export function GenerateConfigDropdown() {
+  const { selectedValues } = useSelectedValues()
+
   const handleGeneratePrettier = () => {
-    const config = generatePrettierConfig()
+    const config: Record<string, string | boolean | number> = {}
+    for (const option of prettierOptions) {
+      config[option.key] = selectedValues[option.key] ?? option.defaultValue
+    }
     downloadJson(config, '.prettierrc')
   }
 
   const handleGenerateOxfmt = () => {
-    const config = generateOxfmtConfig()
+    const config: Record<string, string | boolean | number> = {}
+    for (const option of prettierOptions) {
+      config[option.key] = selectedValues[option.key] ?? option.defaultValue
+    }
+    for (const option of oxfmtOptions) {
+      config[option.key] = selectedValues[option.key] ?? option.defaultValue
+    }
     downloadJson(config, '.oxfmt.json')
   }
 
