@@ -8,15 +8,36 @@ import {
 } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { CodePreview } from './CodePreview'
+import { useSelectedValues } from './SelectedValuesContext'
+import { presets } from '@/data/presets'
 import type { PrettierOption } from '@/data/prettierOptions'
 
 interface OptionCardProps {
   option: PrettierOption
-  selectedValue: string | boolean | number
-  onValueChange: (value: string | boolean | number) => void
+  selectedValue: string | boolean | number | Record<string, any>
+  onValueChange: (value: string | boolean | number | Record<string, any>) => void
 }
 
 export function OptionCard({ option, selectedValue, onValueChange }: OptionCardProps): React.ReactNode {
+  const { selectedPreset } = useSelectedValues()
+
+  const isFromPreset = (() => {
+    if (selectedPreset === 'default') {
+      return false
+    }
+
+    const preset = presets.find(p => p.id === selectedPreset)
+    if (!preset) {
+      return false
+    }
+
+    const presetValue = preset.values[option.key]
+    return presetValue !== undefined && presetValue !== option.defaultValue
+  })()
+
+  // Treat object values as "true" for display purposes
+  const currentTabValue = typeof selectedValue === 'object' ? 'true' : String(selectedValue)
+
   return (
     <Card className="overflow-hidden">
       <CardHeader className="pb-2">
@@ -43,15 +64,21 @@ export function OptionCard({ option, selectedValue, onValueChange }: OptionCardP
           </code>
         </div>
 
-        <Tabs value={String(selectedValue)} onValueChange={(value) => onValueChange(value as string | boolean | number)} className="w-full">
+        <Tabs
+          value={currentTabValue}
+          onValueChange={(value) => onValueChange(value === 'true' && typeof option.defaultValue === 'boolean' ? true : value === 'false' && typeof option.defaultValue === 'boolean' ? false : value)}
+          className="w-full"
+        >
           <TabsList className="w-full flex-wrap h-auto gap-1 bg-muted/50">
             {option.options.map((opt) => {
               const isDefault = opt.value === option.defaultValue
+              const isSelected = String(opt.value) === currentTabValue
+
               return (
                 <TabsTrigger
                   key={String(opt.value)}
                   value={String(opt.value)}
-                  className="text-xs"
+                  className={`text-xs transition-all ${isFromPreset && isSelected && !isDefault ? 'bg-amber-500! text-white! shadow-sm dark:bg-amber-600!' : ''}`}
                 >
                   {String(opt.value) + (isDefault ? ' ⚙️' : '')}
                 </TabsTrigger>

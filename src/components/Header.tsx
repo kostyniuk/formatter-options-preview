@@ -2,13 +2,16 @@ import { Link, useSearch, useNavigate } from '@tanstack/react-router'
 import { ThemeToggle } from './ThemeToggle'
 import { GenerateConfigDropdown } from './GenerateConfigDropdown'
 import { OptionsCombobox } from './OptionsCombobox'
+import { PresetSelector } from './PresetSelector'
 import { GitHubIcon, TwitterIcon } from './icons'
 import { prettierOptions } from '@/data/prettierOptions'
 import { oxfmtOptions } from '@/data/oxfmtOptions'
+import { useSelectedValues } from './SelectedValuesContext'
 
 export default function Header() {
   const search = useSearch({ from: '/' })
   const navigate = useNavigate({ from: '/' })
+  const { selectedPreset, setSelectedPreset } = useSelectedValues()
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -28,6 +31,11 @@ export default function Header() {
           />
         </div>
         <div className="flex items-center gap-4">
+          <PresetSelector
+            value={selectedPreset}
+            onValueChange={setSelectedPreset}
+          />
+          <div className="h-4 w-[1px] bg-border mx-2 hidden sm:block" />
           <a
             href="https://github.com/kostyniuk/mellow-fmt"
             target="_blank"

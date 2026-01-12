@@ -27,7 +27,7 @@ export function GenerateConfigDropdown() {
   const { selectedValues } = useSelectedValues()
 
   const handleGeneratePrettier = () => {
-    const config: Record<string, string | boolean | number> = {}
+    const config: Record<string, unknown> = {}
     for (const option of prettierOptions) {
       config[option.key] = selectedValues[option.key] ?? option.defaultValue
     }
@@ -35,7 +35,7 @@ export function GenerateConfigDropdown() {
   }
 
   const handleGenerateOxfmt = () => {
-    const config: Record<string, string | boolean | number> = {}
+    const config: Record<string, unknown> = {}
     for (const option of prettierOptions) {
       config[option.key] = selectedValues[option.key] ?? option.defaultValue
     }
