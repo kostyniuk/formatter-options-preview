@@ -11,6 +11,8 @@ interface FormatInput {
   } | false
 }
 
+type FileImportOptions = FormatOptions['experimentalSortImports']
+
 export const formatCode = createServerFn({ method: 'POST' })
   .inputValidator((data: FormatInput) => data)
   .handler(async ({ data }) => {
