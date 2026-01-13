@@ -1,5 +1,13 @@
 import { useState } from 'react'
 import { TabsContent } from '@/components/ui/tabs'
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 import { OptionTabs } from './OptionTabs'
 import { OptionCardLayout } from './OptionCardLayout'
 
@@ -153,6 +161,7 @@ export function SubOptionCard({ option, selectedValue, onValueChange }: SubOptio
                                     <div key={subOpt.key} className="flex items-center gap-3">
                                         <Checkbox
                                             checked={isSubEnabled}
+                                            id={subOpt.key}
                                             onCheckedChange={(checked: boolean) => {
                                                 if (checked) {
                                                     handleSubOptionChange(subOpt.key, subOpt.defaultValue as string, false)
@@ -161,22 +170,31 @@ export function SubOptionCard({ option, selectedValue, onValueChange }: SubOptio
                                                 }
                                             }}
                                         />
-                                        <label className="text-sm flex-1 cursor-pointer select-none">
+                                        <label className="text-sm flex-1 cursor-pointer select-none" htmlFor={subOpt.key}>
                                             {subOpt.label}
                                         </label>
-                                        {isSubEnabled && subOpt.choices && (
-                                            <select
-                                                value={String(currentValue ?? subOpt.defaultValue)}
-                                                onChange={(e) => handleSubOptionChange(subOpt.key, e.target.value, false)}
-                                                className="h-7 rounded-md border border-input bg-background px-2 text-xs focus:outline-none focus:ring-2 focus:ring-ring"
-                                            >
-                                                {subOpt.choices.map((choice) => (
-                                                    <option key={choice} value={choice}>
-                                                        {choice}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        )}
+                                        <div className="h-8">
+                                            {isSubEnabled && subOpt.choices && (
+                                                <Select
+                                                    value={String(currentValue ?? subOpt.defaultValue)}
+                                                    onValueChange={(value: string) => handleSubOptionChange(subOpt.key, value, false)}
+                                                >
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select a fruit" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectGroup>
+                                                            {subOpt.choices.map((choice) => (
+                                                                <SelectItem key={choice} value={choice} className="text-xs">
+                                                                    {choice}
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectGroup>
+                                                    </SelectContent>
+                                                </Select>
+
+                                            )}
+                                        </div>
                                     </div>
                                 )
                             }
@@ -184,12 +202,13 @@ export function SubOptionCard({ option, selectedValue, onValueChange }: SubOptio
                             return (
                                 <div key={subOpt.key} className="flex items-center gap-3">
                                     <Checkbox
+                                        id={subOpt.key}
                                         checked={isSubEnabled}
                                         onCheckedChange={(checked: boolean) => {
                                             handleSubOptionChange(subOpt.key, checked, true)
                                         }}
                                     />
-                                    <label className="text-sm flex-1 cursor-pointer select-none">
+                                    <label className="text-sm flex-1 cursor-pointer select-none" htmlFor={subOpt.key}>
                                         {subOpt.label}
                                     </label>
                                 </div>
