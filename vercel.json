@@ -2,10 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
     "**/*": {
-      "includeFiles": [
-        "node_modules/oxfmt/**",
-        "node_modules/@oxfmt/**"
-      ]
+      "includeFiles": "node_modules/{oxfmt,@oxfmt}/**"
     }
   }
 }
